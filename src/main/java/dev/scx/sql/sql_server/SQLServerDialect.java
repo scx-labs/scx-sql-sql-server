@@ -2,6 +2,7 @@ package dev.scx.sql.sql_server;
 
 import com.microsoft.sqlserver.jdbc.SQLServerDataSource;
 import com.microsoft.sqlserver.jdbc.SQLServerDriver;
+import dev.scx.sql.JDBCConnectionInfo;
 import dev.scx.sql.dialect.Dialect;
 import dev.scx.sql.schema.Column;
 import dev.scx.sql.schema.DataTypeKind;
@@ -45,11 +46,11 @@ public class SQLServerDialect implements Dialect {
     }
 
     @Override
-    public DataSource createDataSource(String url, String username, String password, String... parameters) {
+    public DataSource createDataSource(JDBCConnectionInfo connectionInfo) {
         var sqlServerDataSource = new SQLServerDataSource();
-        sqlServerDataSource.setURL(url);
-        sqlServerDataSource.setUser(username);
-        sqlServerDataSource.setPassword(password);
+        sqlServerDataSource.setURL(connectionInfo.url());
+        sqlServerDataSource.setUser(connectionInfo.username());
+        sqlServerDataSource.setPassword(connectionInfo.password());
         return sqlServerDataSource;
     }
 
